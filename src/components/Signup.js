@@ -8,7 +8,6 @@ const Signup = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const handleSubmit = async (data) => {
-    console.log(data);
     try {
       setIsSubmitting(true);
       const response = await api.post("/user/register", data, {
