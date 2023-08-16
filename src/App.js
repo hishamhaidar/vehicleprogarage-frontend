@@ -14,17 +14,23 @@ import Layout from "./components/Layout";
 import RequireAuth from "./components/RequireAuth";
 import Unauthorized from "./components/Unauthorized";
 import AuthContext from "./context/AuthProvider";
+import BookingRequests from "./components/BookingRequests";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userEmail, setUserEmail] = useState("");
-  const { setAuth } = useContext(AuthContext);
+  const [userName, setUserName] = useState("");
+  const [currentUserID, setCurrentUserID] = useState("");
+  const [currentUserRole, setCurrentUserRole] = useState("");
+  const { setAuth, auth } = useContext(AuthContext);
   const navigate = useNavigate();
   const signOut = () => {
     setAuth({});
+    localStorage.removeItem("authToken");
     setIsLoggedIn(false);
     navigate("/");
   };
+
   return (
     <div className="App">
       <Header />
@@ -41,6 +47,9 @@ function App() {
                     setIsLoggedIn={setIsLoggedIn}
                     userEmail={userEmail}
                     setUserEmail={setUserEmail}
+                    setUserName={setUserName}
+                    setCurrentUserID={setCurrentUserID}
+                    setCurrentUserRole={setCurrentUserRole}
                   />
                 }
               />
@@ -48,8 +57,30 @@ function App() {
               <Route path="unauthorized" element={<Unauthorized />} />
               {/* AUTHORIZED ROUTES HERE */}
               <Route element={<RequireAuth signOut={signOut} />}>
-                <Route path="dashboard" element={<Dashboard />} />
-                <Route path="profile" element={<Profile />} />
+                <Route
+                  path="dashboard"
+                  element={
+                    <Dashboard
+                      currentUserID={currentUserID}
+                      currentUserRole={currentUserRole}
+                    />
+                  }
+                />
+                {currentUserRole !== "NEW_USER" ? (
+                  <Route path="bookings" element={<BookingRequests />} />
+                ) : (
+                  <Route path="bookings" element={<Unauthorized />} />
+                )}
+                <Route
+                  path="profile"
+                  element={
+                    <Profile
+                      username={userName}
+                      role={currentUserRole}
+                      userID={currentUserID}
+                    />
+                  }
+                />
               </Route>
 
               {/*404 sites */}

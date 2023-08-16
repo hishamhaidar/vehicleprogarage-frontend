@@ -9,6 +9,7 @@ import {
   UserAddOutlined,
   LogoutOutlined,
   UserOutlined,
+  SoundTwoTone,
 } from "@ant-design/icons";
 
 const SideNavMenu = ({ isLoggedIn, signOut }) => {
@@ -49,6 +50,9 @@ const SideNavMenu = ({ isLoggedIn, signOut }) => {
           <Menu.Item key="/dashboard" icon={<LoginOutlined />}>
             Dashboard
           </Menu.Item>
+          <Menu.Item key="/bookings" icon={<SoundTwoTone />}>
+            Bookings
+          </Menu.Item>
           <Menu.Item key="/profile" icon={<UserOutlined />}>
             Profile
           </Menu.Item>
@@ -59,7 +63,7 @@ const SideNavMenu = ({ isLoggedIn, signOut }) => {
       )}
       <Modal
         title="Confirm Logout"
-        visible={isLogoutModalVisible}
+        open={isLogoutModalVisible}
         onCancel={hideLogoutModal}
         onOk={() => {
           signOut();

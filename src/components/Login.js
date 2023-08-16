@@ -4,9 +4,18 @@ import "../App.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import api from "../api/AxiosConfig";
 import AuthContext from "../context/AuthProvider";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
-const Login = ({ setIsLoggedIn, userEmail, setUserEmail }) => {
+const Login = ({
+  setIsLoggedIn,
+  userEmail,
+  setUserEmail,
+  setUserName,
+  setCurrentUserID,
+  setCurrentUserRole,
+}) => {
   const { setAuth } = useContext(AuthContext);
+  const authApi = useAxiosPrivate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
@@ -19,12 +28,23 @@ const Login = ({ setIsLoggedIn, userEmail, setUserEmail }) => {
       const response = await api.post("/user/authenticate", data, {
         headers: { "Content-Type": "application/json" },
       });
-      console.log(JSON.stringify(response?.data));
       const jwtToken = response?.data?.jwtToken;
       setAuth({ userEmail, jwtToken });
-      console.log(jwtToken);
       navigate(from, { replace: true });
       message.success("You are logged in now!");
+      try {
+        setTimeout(async () => {
+          console.log(userEmail);
+          const loggedUserInfo = await authApi.get(
+            `/user/getinfo/${userEmail}`
+          );
+          setCurrentUserID(loggedUserInfo?.data?.userID);
+          setCurrentUserRole(loggedUserInfo?.data?.role);
+          setUserName(loggedUserInfo?.data?.username);
+        }, 2000);
+      } catch (error) {
+        message.error("Couldnt get user data,please login again");
+      }
       setIsLoggedIn(true);
       setUserEmail("");
     } catch (err) {

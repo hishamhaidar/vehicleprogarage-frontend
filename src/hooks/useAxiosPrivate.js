@@ -5,7 +5,7 @@ import useAuth from "./useAuth";
 const useAxiosPrivate = () => {
   const { auth } = useAuth();
   useEffect(() => {
-    const requestIntercept = axiosPrivate.interceptors.request.use(
+    const requestInterceptor = axiosPrivate.interceptors.request.use(
       (config) => {
         if (!config.headers["Authorization"]) {
           const token = auth?.jwtToken;
@@ -15,11 +15,16 @@ const useAxiosPrivate = () => {
         return config;
       },
       (error) => {
-        Promise.reject(error);
+        return Promise.reject(error);
       }
     );
-    return axiosPrivate.interceptors.request.eject(requestIntercept);
+
+    // Return a cleanup function to remove the interceptor when the component unmounts
+    return () => {
+      axiosPrivate.interceptors.request.eject(requestInterceptor);
+    };
   }, [auth]);
+
   return axiosPrivate;
 };
 
