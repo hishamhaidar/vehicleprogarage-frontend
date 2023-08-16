@@ -15,6 +15,7 @@ import RequireAuth from "./components/RequireAuth";
 import Unauthorized from "./components/Unauthorized";
 import AuthContext from "./context/AuthProvider";
 import BookingRequests from "./components/BookingRequests";
+import ModifyRoles from "./components/ModifyRoles";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -70,6 +71,11 @@ function App() {
                   <Route path="bookings" element={<BookingRequests />} />
                 ) : (
                   <Route path="bookings" element={<Unauthorized />} />
+                )}
+                {currentUserRole === "GARAGE_OWNER" ? (
+                  <Route path="roles" element={<ModifyRoles />} />
+                ) : (
+                  <Route path="roles" element={<Unauthorized />} />
                 )}
                 <Route
                   path="profile"

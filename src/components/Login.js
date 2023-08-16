@@ -34,7 +34,6 @@ const Login = ({
       message.success("You are logged in now!");
       try {
         setTimeout(async () => {
-          console.log(userEmail);
           const loggedUserInfo = await authApi.get(
             `/user/getinfo/${userEmail}`
           );

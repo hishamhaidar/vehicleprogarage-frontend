@@ -10,6 +10,7 @@ import {
   LogoutOutlined,
   UserOutlined,
   SoundTwoTone,
+  ExclamationCircleOutlined,
 } from "@ant-design/icons";
 
 const SideNavMenu = ({ isLoggedIn, signOut }) => {
@@ -52,6 +53,9 @@ const SideNavMenu = ({ isLoggedIn, signOut }) => {
           </Menu.Item>
           <Menu.Item key="/bookings" icon={<SoundTwoTone />}>
             Bookings
+          </Menu.Item>
+          <Menu.Item key="/roles" icon={<ExclamationCircleOutlined />}>
+            Modify Roles
           </Menu.Item>
           <Menu.Item key="/profile" icon={<UserOutlined />}>
             Profile

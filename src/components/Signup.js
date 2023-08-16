@@ -13,11 +13,10 @@ const Signup = () => {
       const response = await api.post("/user/register", data, {
         headers: { "Content-Type": "application/json" },
       });
-      console.log(response.data);
+
       message.success("Registration successful! You can now log in.");
       navigate("/");
     } catch (error) {
-      console.log(error.response.data);
       setErrorMessage(JSON.stringify(error.response.data));
     } finally {
       setIsSubmitting(false);

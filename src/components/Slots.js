@@ -108,7 +108,6 @@ const Slots = ({ slots, getSlots, isAuthorizedModifier }) => {
         maxCapacity: editedSlot.maxCapacity,
       };
 
-      console.log(editRequest);
       setIsEditing(false);
       const response = await authApi.put(
         `/slots/edit/${userID}/${editedSlot?.slotID}`,
