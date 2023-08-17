@@ -30,6 +30,11 @@ const Bookings = ({ bookings, getBookings }) => {
       key: "bookingID",
     },
     {
+      title: "Slot ID",
+      dataIndex: "slotID",
+      key: "slotID",
+    },
+    {
       title: "Booking Status",
       dataIndex: "bookingStatus",
       key: "bookingStatus",
@@ -48,7 +53,16 @@ const Bookings = ({ bookings, getBookings }) => {
         </span>
       ),
     },
-
+    {
+      title: "Vehicle ID",
+      dataIndex: "vehicleID",
+      key: "vehicleID",
+    },
+    {
+      title: "Case",
+      dataIndex: "vehicleProblem",
+      key: "vehicleProblem",
+    },
     {
       title: "Client Email",
       dataIndex: "clientEmail",
@@ -59,11 +73,7 @@ const Bookings = ({ bookings, getBookings }) => {
       dataIndex: "clientFullName",
       key: "clientFullName",
     },
-    {
-      title: "Slot ID",
-      dataIndex: "slotID",
-      key: "slotID",
-    },
+
     {
       title: "Actions",
       key: "actions",
