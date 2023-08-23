@@ -1,26 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Table, message } from "antd";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 const Bookings = ({ bookings, getBookings }) => {
   const authApi = useAxiosPrivate();
+  const [loading, setLoading] = useState(false);
   const handleConfirm = async (bookingID) => {
     try {
-      console.log(bookingID);
-      const response = await authApi.put(`/booking/confirm/${bookingID}`);
+      setLoading(true);
+      await authApi.put(`/booking/confirm/${bookingID}`);
       message.success("Booking succesfully Confirmed");
       await getBookings();
     } catch (error) {
       message.error("failed");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleDeny = async (bookingID) => {
     try {
-      const response = await authApi.put(`/booking/deny/${bookingID}`);
+      setLoading(true);
+      await authApi.put(`/booking/deny/${bookingID}`);
       message.success("Booking succesfully denied");
       await getBookings();
     } catch (error) {
       message.error("failed");
+    } finally {
+      setLoading(false);
     }
   };
   const columns = [
@@ -79,7 +85,7 @@ const Bookings = ({ bookings, getBookings }) => {
       key: "actions",
       render: (_, record) => (
         <div>
-          {record.bookingStatus === "PENDING" && (
+          {record.bookingStatus === "PENDING" && !loading && (
             <Button
               style={{ backgroundColor: "green", marginRight: "5px" }}
               type="primary"
@@ -88,7 +94,7 @@ const Bookings = ({ bookings, getBookings }) => {
               Confirm
             </Button>
           )}
-          {record.bookingStatus === "PENDING" && (
+          {record.bookingStatus === "PENDING" && !loading && (
             <Button danger onClick={() => handleDeny(record.bookingID)}>
               Deny
             </Button>

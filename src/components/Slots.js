@@ -92,7 +92,6 @@ const Slots = ({ slots, getSlots, isAuthorizedModifier }) => {
   ];
   const handleSavingEditiedSlot = async (data) => {
     try {
-      console.log(editedSlot);
       const userID = editedSlot?.userID;
 
       const formattedStartTime = moment(editedSlot?.startTime).format(

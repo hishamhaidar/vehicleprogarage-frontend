@@ -24,9 +24,8 @@ const Dashboard = ({ currentUserID, currentUserRole }) => {
     try {
       const response = await authApi.get("/slots/search/all");
       setSlots(response.data);
-      console.log(response.data);
     } catch (error) {
-      console.log(error);
+      message.error("couldnt get slots");
     }
   };
   const isAuthorizedModifier = () => {

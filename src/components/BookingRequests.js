@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Bookings from "./Bookings";
+import { message } from "antd";
 
 const BookingRequests = () => {
   const [bookings, setBookings] = useState([]);
@@ -8,9 +9,10 @@ const BookingRequests = () => {
   const getBookings = async () => {
     try {
       const response = await authApi.get("/booking/viewall");
-      console.log(response.data);
       setBookings(response.data);
-    } catch (err) {}
+    } catch (err) {
+      message.error(err?.response?.data);
+    }
   };
   useEffect(() => {
     getBookings();
