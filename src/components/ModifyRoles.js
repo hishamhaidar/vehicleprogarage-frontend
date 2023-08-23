@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { Button, Form, Input, Modal, Select, Table, message } from "antd";
+import {
+  Button,
+  FloatButton,
+  Form,
+  Input,
+  Modal,
+  Select,
+  Table,
+  message,
+} from "antd";
 import { EditOutlined } from "@ant-design/icons";
 
 const ModifyRoles = () => {
@@ -104,6 +113,7 @@ const ModifyRoles = () => {
           </Button>
         </Form>
       </Modal>
+      <FloatButton.BackTop />
     </div>
   );
 };

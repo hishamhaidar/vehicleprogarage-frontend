@@ -21,7 +21,7 @@
 .App-Footer {
   background-color: #edf756;
   padding: 10px;
-  flex-shrink: 0; /* Footer should not shrink */
+  flex-shrink: 0;
 }
 
 /* Navigation menu */

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import Bookings from "./Bookings";
-import { message } from "antd";
+import { FloatButton, message } from "antd";
 
 const BookingRequests = () => {
   const [bookings, setBookings] = useState([]);
@@ -21,6 +21,7 @@ const BookingRequests = () => {
     <div>
       <h2>Booking Requests</h2>
       <Bookings bookings={bookings} getBookings={getBookings} />
+      <FloatButton.BackTop />
     </div>
   );
 };
